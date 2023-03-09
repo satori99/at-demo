@@ -20,7 +20,7 @@ todo...
 
 #### TODO List
 
-  - create project (package.json and dir layout)
+  - ~~create project (package.json and dir layout)~~
   - create multi-process server application
   - create express application
   - create data model (users, devices, articles ...)
