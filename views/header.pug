@@ -2,11 +2,6 @@
 
 nav.navbar.navbar-dark.navbar-expand-lg
 
-  //- site logo
-  a(href="/").navbar-brand
-    img(src="/img/site_logo.png" alt="site logo" width="301" height="93")
-    span.visually-hidden= package.config.title
-
   //- toggle button (visible when less then large screen size
   button.navbar-toggler(
     type="button"
@@ -17,8 +12,18 @@ nav.navbar.navbar-dark.navbar-expand-lg
     aria-label="Toggle main navigation"
   ): span.navbar-toggler-icon
 
+  //- site logo
+  a(href="/").navbar-brand
+    img.d-none.d-lg-block(src="/img/site_logo.png" alt="site logo" width="301" height="93")
+    img.d-sm-block.d-lg-none(src="/img/site_logo_small.png" alt="site logo" width="151" height="47")
+    span.visually-hidden= package.config.title
+
+
+  a.btn.btn-primary.order-lg-5(href="#") Test
+
+
   //- main navigation links
-  .collapse.navbar-collapse.justify-content-end#main-navigation
+  .collapse.navbar-collapse.justify-content-center#main-navigation
     ul.navbar-nav.mb-2.mb-lg-0
       each item, href in mainNavigation
         li.nav-item: a.nav-link(
