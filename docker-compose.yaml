@@ -1,0 +1,35 @@
+version: "3.9"
+name: at_demo
+services:
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: .env
+    networks:
+      - outside
+      - inside
+  web:
+    container_name: at_demo
+    build:
+      context: .
+    init: true
+    restart: unless-stopped
+    depends_on:
+      - tunnel
+    volumes:
+      - type: volume
+        source: at-demo
+        target: /app/data
+        volume:
+          nocopy: true
+    networks:
+      - inside
+volumes:
+  at-demo:
+networks:
+  outside:
+    internal: false
+  inside:
+    internal: true
