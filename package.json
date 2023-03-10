@@ -12,7 +12,20 @@
     "title": "Accessible Telecoms"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:development": "npx at-demo -p 8000 -w 4 -e development",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm-watch start:development"
+  },
+  "watch": {
+    "start:development": [
+      "package.json",
+      "app.js",
+      "bin/**/*.js",
+      "models/**/*.js",
+      "controllers/**/*.js",
+      "middleware/**/*.js",
+      "public/doc/**/*.md"
+    ]
   },
   "repository": {
     "type": "git",
@@ -37,5 +50,8 @@
     "nocache": "^3.0.4",
     "pug": "^3.0.2",
     "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.11.0"
   }
 }
