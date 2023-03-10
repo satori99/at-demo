@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start:development": "npx at-demo -p 8000 -w 4 -e development",
+    "docker:build": "docker build -t at-demo:latest .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npm-watch start:development"
   },
