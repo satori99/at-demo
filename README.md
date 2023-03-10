@@ -30,4 +30,8 @@ todo...
   - ~~create data model (users, devices, articles ...)~~
   - ~~create basic application routes (controllers and views)~~
   - create basic administration routes
+  - create articles views
+  - create device search views
+  - create subscription views
+  - create contact views
   - ...more
