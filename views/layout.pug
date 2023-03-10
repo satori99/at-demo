@@ -1,0 +1,25 @@
+//- views/layout.pug
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title: block title
+      =package.config.title
+    block styles
+      link(rel="stylesheet" href="/css/bootstrap.min.css")
+      link(rel="stylesheet" href="/css/main.css")
+    block scripts
+      script(src="/js/bootstrap.bundle.min.js")
+  body.vh-100.d-flex.flex-column.flex-nowrap
+    header.flex-shrink-0.bg-dark: .container
+      block header
+        include header.pug
+    main.flex-grow-1: .container
+      block breadcrumbs
+        include breadcrumbs.pug
+      block main
+    footer.bg-dark.text-white
+      block footer
+        include footer.pug
+//- EOF

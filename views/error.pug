@@ -1,0 +1,12 @@
+//- view/error.pug
+
+extends layout.pug
+
+append title
+  | &nbsp;&mdash;&nbsp;
+  = title
+
+block main
+  h1= error.message
+
+//- EOF

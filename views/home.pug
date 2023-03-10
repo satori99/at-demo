@@ -1,0 +1,15 @@
+//- view/home.pug
+
+extends layout.pug
+
+append title
+  | &nbsp;&mdash;&nbsp;
+  = title
+
+block breadcrumbs
+  //- no breadcrumbs on home page
+
+block main
+  h1= title
+
+//- EOF

@@ -5,11 +5,15 @@
  */
 
 import { debuglog } from 'node:util'
+import { STATUS_CODES } from 'node:http'
 
 import express from 'express'
 import logging from 'morgan'
 import favicon from 'serve-favicon'
 import compression from 'compression'
+
+
+import router from './controllers/router.js'
 
 const debug = debuglog( 'at-demo:app' )
 
@@ -59,11 +63,7 @@ app.use( express.static( 'node_modules/bootstrap/dist', {
 
 } ) )
 
-app.get( '/', ( req, res, next ) => {
-
-  res.send( app.locals.package )
-
-} )
+app.use( router )
 
 app.use( ( req, res, next ) => {
 
@@ -78,9 +78,32 @@ app.use( ( req, res, next ) => {
 
 app.use( ( err, req, res, next ) => {
 
-    return next()
+    if ( res.headersSent ) return next()
 
-  //
+    if ( res.statusCode >= 400 ) {
+      // a statusCode was already set, so lets assume the error message is
+      // meaningful to users.
+      res.locals.error = err
+
+    } else {
+
+      debug( 'unexpected error @ route %s', req.url, err )
+
+      res.status( 500 )
+
+      const message = `${res.statusCode} - ${STATUS_CODES[res.statusCode]}`
+
+      res.locals.error = { message }
+
+      if ( process.env.NODE_ENV === 'development' ) {
+
+        res.locals.error.message += `\n\n${err.message}`
+
+      }
+
+    }
+
+    res.render( 'error' )
 
 } )
 

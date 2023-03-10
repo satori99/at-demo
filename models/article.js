@@ -27,6 +27,12 @@ export default class Article extends Model {
 
   }
 
+  static find ( db ) {
+
+    return null
+
+  }
+
 }
 
 /* EOF */

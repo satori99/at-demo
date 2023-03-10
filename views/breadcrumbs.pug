@@ -1,0 +1,12 @@
+//- views/breadcrumbs.pug
+
+nav.p-2(aria-label="breadcrumb")
+  ol.m-0.breadcrumb
+    each breadcrumb in breadcrumbs
+      li.breadcrumb-item(
+        class={ active: breadcrumb.active }
+      ): a(
+        href=breadcrumb.href
+      )= breadcrumb.name
+
+//- EOF

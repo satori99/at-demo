@@ -1,0 +1,12 @@
+//- views/document.pug
+extends layout.pug
+
+append title
+  | &nbsp;&mdash;&nbsp;
+  = title
+
+block main
+  .mt-3.mb-5
+    | !{content}
+
+//- EOF
