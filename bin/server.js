@@ -18,6 +18,7 @@ import Database from 'better-sqlite3'
 import Metadata from '../models/metadata.js'
 import User from '../models/user.js'
 import Article from '../models/article.js'
+import DeviceType from '../models/device-type.js'
 import Device from '../models/device.js'
 
 const __filename = fileURLToPath( import.meta.url )
@@ -112,6 +113,9 @@ try {
     Article.init( db )
     console.error( ' ✅ article model initialized' )
 
+    DeviceType.init( db )
+    console.error( ' ✅ device-type model initialized' )
+    
     Device.init( db )
     console.error( ' ✅ device model initialized' )
 

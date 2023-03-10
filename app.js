@@ -15,11 +15,13 @@ import compression from 'compression'
 
 import router from './controllers/router.js'
 
+import adminRouter from './controllers/admin/router.js'
+
 const debug = debuglog( 'at-demo:app' )
 
 const app = express()
 
-app.disable( 'X-Powered-By' )
+app.disable( 'x-powered-by' )
 
 app.set( 'trust proxy', 1 )
 
@@ -64,6 +66,8 @@ app.use( express.static( 'node_modules/bootstrap/dist', {
 } ) )
 
 app.use( router )
+
+app.use( '/admin', adminRouter )
 
 app.use( ( req, res, next ) => {
 

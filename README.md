@@ -35,7 +35,7 @@ todo: something about differences between production and dev modes...
   - ~~create express application~~
   - ~~create data model (users, devices, articles ...)~~
   - ~~create basic application routes (controllers and views)~~
-  - create basic administration routes
+  - ~~create basic administration routes~~
   - create Dockerfile
   - create docker compose
   - create articles views

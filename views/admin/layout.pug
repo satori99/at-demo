@@ -1,0 +1,53 @@
+//- views/admin/layout.pug
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title
+      block title
+        | Accessible Telecoms Admin
+    block styles
+      link(rel="stylesheet" href="/css/bootstrap.min.css")
+    block scripts
+      script(src="/js/bootstrap.min.js")
+  // body is a single nowrap flex column
+  body.vh-100.d-flex.flex-column.flex-nowrap
+
+    header.flex-shrink-0
+      block header
+        include header.pug
+      
+    main.flex-grow-1.d-flex.flex-row.flex-nowrap
+      //- left column nav
+      .d-flex.flex-column.flex-shrink-0.text-white.bg-dark(style="width: 180px;")
+        ul.nav.flex-column
+          li.nav-item: a.nav-link(href="/admin/article") Articles
+          li.nav-item: a.nav-link(href="/admin/device") Devices
+          li.nav-item: a.nav-link(href="/admin/user") Users
+      //- main column
+      .flex-grow-1
+        //- breadcrumbs
+        block breadcrumbs
+          .container-fluid
+            nav.p-2(aria-label="breadcrumb")
+              ol.m-0.breadcrumb
+                each breadcrumb in breadcrumbs
+                  li.breadcrumb-item(
+                    class={ active: breadcrumb.active }
+                  ): a(
+                    href=breadcrumb.href
+                  )= breadcrumb.name
+        //- page navbar
+        .container-fluid
+          nav.navbar.mb-2
+            .navbar-brand: h1= title
+            block page-nav
+        //- page main
+        .container-fluid
+          block main
+
+    footer.flex-shrink-0.bg-secondary.text-white.p-2
+      block footer
+        include footer.pug
+//- EOF

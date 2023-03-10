@@ -53,6 +53,15 @@ WHERE user.deleted = 0;` )
 
   }
 
+  static find ( db, {
+    id           = null,
+    username     = null,
+    emailAddress = null,
+  } = {} ) {
+    const select = db.prepare( `SELECT * FROM user_view WHERE ( id = @id OR username = @username OR emailAddress = @emailAddress )` )
+    return select.get( { id, username, emailAddress } )
+  }
+
 }
 
 /* EOF */

@@ -1,0 +1,24 @@
+//- view/admin/home.pug
+
+extends layout.pug
+
+block breadcrumbs
+  //- none
+  
+block main
+
+  p todo: some sort of dashboard here...
+
+  dl
+    dt name
+    dd= package.name
+    dt version
+    dd= package.version
+    dt description
+    dd= package.description    
+    dt repository
+    dd= package.repository.url
+    dt homepage
+    dd: a(href=package.homepage target="_blank")= package.homepage
+    
+//- EOF
