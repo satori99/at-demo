@@ -15,6 +15,11 @@ import { existsSync } from 'node:fs'
 import { program, Option } from 'commander'
 import Database from 'better-sqlite3'
 
+import Metadata from '../models/metadata.js'
+import User from '../models/user.js'
+import Article from '../models/article.js'
+import Device from '../models/device.js'
+
 const __filename = fileURLToPath( import.meta.url )
 const __dirname  = dirname( __filename )
 const __package  = JSON.parse( readFileSync( join( __dirname, '../package.json' ) ) )
@@ -27,8 +32,6 @@ if ( ! cluster.isPrimary ) {
   console.error( 'this process (%d) is not a cluster primary!', process.pid )
   process.exit( 1 )
 }
-
-
 
 cluster.setupPrimary( {
   exec: join( __dirname, 'worker.js' ),
@@ -91,11 +94,28 @@ console.error( 'initializing database:', filepath )
 
 if ( ! existsSync( filepath ) ) debug( 'creating new database file:', filepath )
 
-const db = new Database( filepath, { fileMustExist: false, verbose: debug, } )
+const db = new Database( filepath, { fileMustExist: false, verbose: debug } )
 
 try {
 
-  // todo: init models
+  // make sure WAL is set for this database
+  db.pragma( 'journal_mode = WAL' )
+
+  await db.transaction( async () => {
+
+    Metadata.init( db )
+    console.error( ' ✅ metadata model initialized' )
+
+    await User.init( db )
+    console.error( ' ✅ user model initialized' )
+
+    Article.init( db )
+    console.error( ' ✅ article model initialized' )
+
+    Device.init( db )
+    console.error( ' ✅ device model initialized' )
+
+  } )()
 
 } finally { db.close() }
 
