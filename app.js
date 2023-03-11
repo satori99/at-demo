@@ -12,6 +12,8 @@ import logging from 'morgan'
 import favicon from 'serve-favicon'
 import compression from 'compression'
 
+import sessionCookie from './middleware/session-cookie.js'
+//import requireUser from './middleware/require-user.js'
 
 import router from './controllers/router.js'
 
@@ -67,7 +69,7 @@ app.use( express.static( 'node_modules/bootstrap/dist', {
 
 app.use( router )
 
-app.use( '/admin', adminRouter )
+app.use( '/admin', sessionCookie, adminRouter )
 
 app.use( ( req, res, next ) => {
 

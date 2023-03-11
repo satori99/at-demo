@@ -1,0 +1,59 @@
+//- views/admin/login.pug
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title
+      block title
+        =package.config.title
+    block styles
+      link(rel="stylesheet" href="/css/bootstrap.min.css")
+      link(rel="stylesheet" href="/css/main.css")
+    block scripts
+      script(src="/js/bootstrap.bundle.min.js")
+  body.vh-100.d-flex.flex-column.flex-nowrap.align-items-center.justify-content-center
+    main
+      .container
+        h2 Admin Login
+        hr
+        p= session.message
+        form(
+          method="POST"
+          action="/admin"
+        )
+          input(
+            type="hidden"
+            name="token"
+            value= session.token
+          )
+          fieldset
+            .row.mb-2
+              .col
+                label(
+                  for="username"
+                ) Username
+              .col
+                input#username(
+                  name="username"
+                  type="text"
+                  placeholder="username or email"
+                )
+            .row.mb-2
+              .col
+                label(
+                  for="password"
+                ) Password
+              .col
+                input#password(
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                )
+          hr
+          .row.mb-2
+            input.btn.btn-primary(
+              type="submit"
+              value="Login"
+            )
+//- EOF        

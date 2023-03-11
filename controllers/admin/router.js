@@ -4,11 +4,20 @@ import { STATUS_CODES } from 'node:http'
 import express from 'express'
 import nocache from 'nocache'
 
+// models
 import User from '../../models/user.js'
 import DeviceType from '../../models/device-type.js'
 import Device from '../../models/device.js'
 import Article from '../../models/article.js'
 
+// middleware
+//import sessionCookie from '../../middleware/session-cookie.js'
+import requireUser from '../../middleware/require-user.js'
+import requireAdmin from '../../middleware/require-admin.js'
+
+// admin routes
+import login from './login.js'
+import logout from './logout.js'
 import home from './home.js'
 import users from './users.js'
 import user from './user.js'
@@ -21,13 +30,15 @@ const debug = debuglog( 'at-demo:admin' )
 
 const router = express.Router()
 
+// don't cache any admin pages
 router.use( nocache() )
 
+// add some default locals for all admin routes
 router.use( ( req, res, next ) => {
 
-  res.locals.accessToken = 'access123'
-
   res.locals.req = req
+
+  res.locals.accessToken = process.env.ACCESS_TOKEN
 
   res.locals.breadcrumbs = [ { name: 'Home', href: '/admin' } ]
 
@@ -35,12 +46,16 @@ router.use( ( req, res, next ) => {
 
 } )
 
-// router.post( '/', login )
+// handle login requests
+router.post( '/', login )
 
-// router.use( requireUser )
+// require a valid user for all routes from here on.
+router.use( requireUser )
 
-// router.get( '/logout', logout )
+// handle logout requests
+router.get( '/logout', logout )
 
+// home/dashboard
 router.get( '/', home )
 
 // users
